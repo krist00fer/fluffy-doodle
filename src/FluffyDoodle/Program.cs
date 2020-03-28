@@ -1,3 +1,5 @@
+using System.Security.Principal;
+using System.Text.RegularExpressions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,6 +8,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+// using Grpc.Core;
+// using Grpc;
+// using grpc = global::Grpc.Core;
+using Grpc.Core;
+using Grpc.Net.Client;
+
 
 namespace FluffyDoodle
 {
@@ -30,6 +38,35 @@ namespace FluffyDoodle
 
         private static void RunAsClient(bool noTls)
         {
+            // var channel = GrpcChannel.ForAddress("https://localhost:5001", new GrpcChannelOptions {});
+            // var client = new Greeter.GreeterClient(channel);
+
+            // var response = await client.SayHelloAsync(
+            //     new HelloRequest { Name = "World" });
+
+            // var channel = new Greeter.GreeterClient(null);
+            // var client = new Greeter.GreeterClient(channelBase);
+            // Console.WriteLine(response.Message);
+
+            // var channel = GrpcChannel.ForAddress("https://localhost:5001");
+
+            GrpcChannel channel;
+
+            if (noTls)
+            {
+                AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+                channel = GrpcChannel.ForAddress("http://localhost:5000");
+            }
+            else
+            {
+                channel = GrpcChannel.ForAddress("https://localhost:5001");
+            }
+
+            var client = new Greeter.GreeterClient(channel);
+
+            var reply = client.SayHello(new HelloRequest{ Name = "Kristofer"});
+
+            Console.WriteLine(reply.Message);
         }
 
         private static void RunAsServer(bool noTls, string[] args)
