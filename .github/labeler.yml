@@ -1,0 +1,5 @@
+code:
+    - src/**/*.cs
+documentation:
+    - ./**/*.md
+    - docs/**/*
