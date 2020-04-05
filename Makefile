@@ -5,13 +5,13 @@ clean:
 restore:
 	dotnet restore
 run:
-	dotnet run --no-build --project src/FluffyDoodle.Client
+	dotnet run --project src/FluffyDoodle.Client
 run-client:
-	dotnet run --no-build --project src/FluffyDoodle.Client
+	dotnet run --project src/FluffyDoodle.Client
 run-client-no-tls:
-	dotnet run --no-build --project src/FluffyDoodle.Client -- --no-tls
+	dotnet run ---project src/FluffyDoodle.Client -- --no-tls
 run-client-help:
-	dotnet run --no-build --project src/FluffyDoodle.Client -- --help
+	dotnet run --project src/FluffyDoodle.Client -- --help
 watch-run-client:
 	dotnet watch --project src/FluffyDoodle.Client/ run
 watch-run-client-no-tls:
@@ -19,11 +19,11 @@ watch-run-client-no-tls:
 
 
 run-server:
-	dotnet run --no-build --project src/FluffyDoodle.Server
+	dotnet run --project src/FluffyDoodle.Server
 run-server-no-tls:
-	dotnet run --no-build --project src/FluffyDoodle.Server -- --no-tls
+	dotnet run --project src/FluffyDoodle.Server -- --no-tls
 run-server-help:
-	dotnet run --no-build --project src/FluffyDoodle.Server -- --help
+	dotnet run --project src/FluffyDoodle.Server -- --help
 watch-run-server:
 	dotnet watch --project src/FluffyDoodle.Server/ run
 watch-run-server-no-tls:
